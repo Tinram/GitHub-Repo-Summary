@@ -1,0 +1,12 @@
+html * {margin:0; padding:0;}
+body {font:100% Sans,FreeSans,verdana,arial,helvetica,sans-serif; background:#fff; color:#000; margin:3em;}
+h1 {font-size:1.1em; margin-bottom:15px;}
+table {border-collapse:collapse;}
+th, td {border:1px solid #ccc; padding:2px; font-size:0.9em;}
+thead {background:#ddd;}
+th {text-align:right;}
+th#repo {text-align:left;}
+td {text-align:right; width:90px;}
+td.repo {text-align:left; width:250px;}
+tr:nth-child(odd) td {background:#fff;}
+tr:nth-child(even) td {background:#f6f6f6;}
