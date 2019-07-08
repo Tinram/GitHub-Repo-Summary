@@ -11,7 +11,7 @@ This script provides a concise overview of my repos, sorting by 'issues' in the 
 
 Or viewing Rasmus' GitHub account:
 
-[1]: http://localhost/test/ghrs.png
+[1]: https://tinram.github.io/images/ghrs.png
 ![GitHub-Repo-Summary][1]
 
 
