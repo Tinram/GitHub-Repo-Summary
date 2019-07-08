@@ -6,14 +6,16 @@
 
 ## Background
 
-I often miss 'issues' as they are posted.  
+I often miss 'issues' as they are posted in my repos.  
 This script provides a concise overview of my repos, sorting by 'issues' in the first table column.
 
 
 ## Usage
 
 1. Clone the repository or extract the file archive into a suitable directory in the server's web directory.
-2. On *nix servers, set appropriate file ownership on this directory.
+2. On *nix servers, set appropriate file attributes for the directories and files
+    + e.g. a directory called *ghrs* on Debian-based distros:  
+    `sudo chown -R userx:www-data ghrs/ && chmod 770 ghrs/ ghrs/css ghrs/classes && chmod 660 ghrs/ghrs.log`
 3. Edit */config.php*: change `<username>` in line 9 to a real GitHub account name.
 4. View */index.php* in a browser.
 
