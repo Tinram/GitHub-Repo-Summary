@@ -6,8 +6,13 @@
 
 ## Background
 
-I often miss 'issues' as they are posted in my repos.  
+I often miss 'issues' when they are posted in my repos.  
 This script provides a concise overview of my repos, sorting by 'issues' in the first table column.
+
+Or viewing Rasmus' GitHub account:
+
+[1]: http://localhost/test/ghrs.png
+![GitHub-Repo-Summary][1]
 
 
 ## Usage
