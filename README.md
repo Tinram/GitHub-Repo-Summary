@@ -1,18 +1,20 @@
 
 # GitHub Repo Summary
 
-#### Create a table summary of a GitHub account's repo statistics.
+#### Display a table summary of a GitHub account's repo statistics.
 
 
 ## Background
 
 I often miss 'issues' when they are posted in my repos.  
-This script provides a concise overview of my repos, sorting by 'issues' in the first table column.
+This script provides an overview of repo stats, sorting by 'issues' in the first table column.
 
-Or viewing Rasmus' GitHub account:
+Or change the URL and view someone else's account:
 
 [1]: https://tinram.github.io/images/ghrs.png
 ![GitHub-Repo-Summary][1]
+
+The script is relatively straightforward to change, so other data within the GitHub API JSON can be displayed in the table.
 
 
 ## Usage
