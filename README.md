@@ -35,6 +35,7 @@ The script is relatively straightforward to change, so other data within the Git
     + edit the methods `processData()` and `createOutput()` to modify the data collected and the table/logfile output data.
 4. Change `const SORT_BY` in */config.php* to change the column sort.
 
+
 ## License
 
 GitHub Repo Summary is released under the [GPL v.3](https://www.gnu.org/licenses/gpl-3.0.html).

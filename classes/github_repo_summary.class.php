@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tinram\GitHubRepoSummary;
 
+
 final class GitHubRepoSummary
 {
     /**
@@ -11,39 +12,45 @@ final class GitHubRepoSummary
         *
         * Create table summary of GitHub account repo statistics.
         *
-        * Coded to PHP 7.0
+        * Coded to PHP 7.2
         *
         * @author        Martin Latter
         * @copyright     Martin Latter 05/07/2019
-        * @version       0.04
+        * @version       0.05
         * @license       GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
         * @link          https://github.com/Tinram/GitHub-Repo-Summary.git
     */
 
 
-    /* @var array, results holder */
+    /** @var array<int,mixed> $aResults, results holder */
     private $aResults = [];
 
-    /* @var string, output string container */
+    /** @var string $sOutput, output string container */
     private $sOutput = '';
 
-    /* @var string, array column to sort by */
+    /** @var string $sSortBy, array column to sort by */
     private $sSortBy = '';
 
-    /* @var string, log file container */
+    /** @var string $sLogFile, log file container */
     private $sLogFile = '';
 
-    /* @var boolean, GitHub Account URL for logging */
+    /** @var boolean $bLogAccountName, GitHub Account URL for logging */
     private $bLogAccountName = true;
 
-    /* @var string, url output */
+    /** @var string $sURL, url output */
     private $sURL = '';
 
-    /* @var string, account name output */
+    /** @var string $sAccountName, account name output */
     private $sAccountName = '';
 
 
-    public function __construct($oConfig = null)
+    /**
+        * Constructor.
+        *
+        * @param   CONFIG $oConfig, configuration object
+    */
+
+    public function __construct(object $oConfig = null)
     {
         if (is_null($oConfig))
         {
@@ -59,7 +66,7 @@ final class GitHubRepoSummary
             # for GitHub accounts, not local files
             if (strpos($oConfig::URL, 'api.') !== false)
             {
-                if  (preg_match('/users\/([\w_-]+)\/repos/', $oConfig::URL, $aMatch))
+                if  (preg_match('/users\/([\w_-]+)\/repos/', $oConfig::URL, $aMatch) === 1)
                 {
                     $this->sAccountName = $aMatch[1];
                     $this->sURL = 'https://github.com/' . $this->sAccountName;
@@ -69,7 +76,7 @@ final class GitHubRepoSummary
             $aRaw = $this->getData($oConfig::URL, $oConfig::BROWSER);
         }
 
-        if ( ! empty($aRaw))
+        if (count($aRaw) !== 0)
         {
             $this->processData($aRaw);
         }
@@ -87,7 +94,8 @@ final class GitHubRepoSummary
         *
         * @param   string $sURL, API URL
         * @param   string $sBrowser, browser string for cURL
-        * @return  array
+        *
+        * @return  array<int,array>
     */
 
     private function getData(string $sURL = '', string $sBrowser): array
@@ -105,11 +113,12 @@ final class GitHubRepoSummary
     /**
         * Create sortable array from cURL data.
         *
-        * @param   array $aRaw, raw data from cURL
+        * @param   array<int,array> $aRaw, raw data from cURL
+        *
         * @return  void
     */
 
-    private function processData(array $aRaw)
+    private function processData(array $aRaw): void
     {
         foreach ($aRaw as $aRepo)
         {
@@ -120,7 +129,7 @@ final class GitHubRepoSummary
             return $i2[$this->sSortBy] <=> $i1[$this->sSortBy]; # based on example by Mark Amery
         });
 
-        //array_multisort(array_column($this->aResults, $sSortBy), SORT_DESC, $this->aResults);
+        //array_multisort(array_column($this->aResults, $this->sSortBy), SORT_DESC, $this->aResults);
     }
 
 
@@ -130,12 +139,12 @@ final class GitHubRepoSummary
         * @return  void
     */
 
-    private function createOutput()
+    private function createOutput(): void
     {
         $sFileStr = $this->bLogAccountName ? $this->sURL . PHP_EOL : '';
         $sFileStr .= 'repo | issues | stars | forks | watchers |' . PHP_EOL;
 
-        $this->sOutput .= (( ! empty($this->sAccountName)) ? '<h1>' . $this->sAccountName . '</h1>' : '');
+        $this->sOutput .= (($this->sAccountName !== '') ? '<h1>' . $this->sAccountName . '</h1>' : '');
         $this->sOutput .= '
 
             <table>
@@ -175,10 +184,11 @@ final class GitHubRepoSummary
         * Log data to file for historical comparison.
         *
         * @param   string $sMessage, message to log
+        *
         * @return  void
     */
 
-    private function logWrite(string $sMessage = '')
+    private function logWrite(string $sMessage = ''): void
     {
         if ( ! file_exists($this->sLogFile))
         {
@@ -188,9 +198,9 @@ final class GitHubRepoSummary
         $sMessage = PHP_EOL . $sMessage . date('Y-m-d H:i:s P T') . PHP_EOL;
         $iLogWrite = file_put_contents($this->sLogFile, $sMessage, FILE_APPEND);
 
-        if ( ! $iLogWrite)
+        if ($iLogWrite === false)
         {
-            echo 'Could not write to logfile ' . $this->sLogfile . PHP_EOL;
+            echo 'Could not write to logfile ' . $this->sLogFile . PHP_EOL;
         }
     }
 
